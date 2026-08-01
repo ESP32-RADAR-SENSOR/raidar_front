@@ -9,10 +9,12 @@ namespace RAIDAR_FRONT.ViewModels
     {
         public INetworkService NetworkService { get; }
         public RadarViewModel RadarVM { get; } = new();
+        public DeviceControlViewModel DeviceControlVM { get; }
 
         public MainViewModel()
         {
             NetworkService = new TcpClientService();
+            DeviceControlVM = new DeviceControlViewModel(NetworkService);
         }
     }
 }
