@@ -1,12 +1,9 @@
-using System;
-using System.Threading.Tasks;
 using RAIDAR_FRONT.Models;
 
 namespace RAIDAR_FRONT.Services
 {
-    /// <summary>
     /// C++ 서버 및 ESP32 레이더 통신을 위한 네트워크 서비스 인터페이스
-    /// </summary>
+
     public interface INetworkService
     {
         event Action<RadarTargetDto>? TargetDataReceived;

@@ -4,9 +4,8 @@ using RAIDAR_FRONT.Models;
 
 namespace RAIDAR_FRONT.Services
 {
-    /// <summary>
-    /// C++ 서버와의 TCP/IP 소켓 통신 모듈 (직접 작성할 영역)
-    /// </summary>
+    /// C++ 서버와의 TCP/IP 소켓 통신 모듈
+    /// 
     public class TcpClientService : INetworkService
     {
         public event Action<RadarTargetDto>? TargetDataReceived;
