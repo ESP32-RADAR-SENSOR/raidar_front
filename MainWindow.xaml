@@ -5,12 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:RAIDAR_FRONT.Views"
         xmlns:vm="clr-namespace:RAIDAR_FRONT.ViewModels"
+        xmlns:local="clr-namespace:RAIDAR_FRONT.Converters"
         mc:Ignorable="d"
         Title="RAIDAR - ESP32 Radar Situation Control System" 
         Height="850" Width="1300"
         MinHeight="700" MinWidth="1000"
         Background="#030712" WindowStartupLocation="CenterScreen">
 
+    <Window.Resources>
+        <local:BooleanToTextConverter x:Key="BooleanToTextConverter"/>
+    </Window.Resources>
+    
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -24,7 +29,49 @@
 
         <!-- 상단 헤더 -->
         <Border Grid.Row="0" Background="#0A0E1A" CornerRadius="12" BorderBrush="#1E293B" BorderThickness="1.5" Margin="6" Padding="16,12">
-            <TextBlock Text="🎯 RAIDAR MONITORING FRONTEND" Foreground="#00F0FF" FontWeight="Bold" FontSize="18"/>
+            <DockPanel LastChildFill="False">
+                    <TextBlock Text="🎯 RAIDAR MONITORING FRONTEND" Foreground="#FFFFFF" FontWeight="Bold" FontSize="18"/>
+
+            
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <Border CornerRadius="12" Padding="12, 4">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="#1E293B"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                                        <Setter Property="Background" Value="#065F46"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                                        <Setter Property="Background" Value="#1E3A8A"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="10" Height="10" Margin="0,0,6,0">
+                                <Ellipse.Style>
+                                    <Style TargetType="Ellipse">
+                                        <Setter Property="Fill" Value="#1E293B"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                                                <Setter Property="Fill" Value="#10B981"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                                                <Setter Property="Fill" Value="#EF4444"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Ellipse.Style>
+                            </Ellipse>
+
+                            <TextBlock Foreground="White" Text="{Binding IsConnected, Converter={StaticResource BooleanToTextConverter}}"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </DockPanel>
+
         </Border>
 
         <!-- 메인 콘텐츠 영역 (2열 분할: 영역 1 레이더 상황도 + 영역 2 원격 제어 패널) -->

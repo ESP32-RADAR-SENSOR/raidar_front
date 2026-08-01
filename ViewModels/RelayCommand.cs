@@ -1,11 +1,10 @@
-using System;
 using System.Windows.Input;
 
 namespace RAIDAR_FRONT.ViewModels
 {
-    /// <summary>
+
     /// ICommand 기본 구현체 (MVVM 바인딩 지원)
-    /// </summary>
+
     public class RelayCommand : ICommand
     {
         private readonly Action _execute;
