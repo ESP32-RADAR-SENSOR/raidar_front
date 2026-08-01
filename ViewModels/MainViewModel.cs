@@ -1,10 +1,18 @@
+using RAIDAR_FRONT.Services;
+
 namespace RAIDAR_FRONT.ViewModels
 {
     /// <summary>
-    /// 메인 대시보드 뷰모델 골격 (직접 작성할 영역)
+    /// 메인 대시보드 ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        // TODO: 하위 ViewModels 및 NetworkService 오케스트레이션 로직 구현
+        public INetworkService NetworkService { get; }
+        public RadarViewModel RadarVM { get; } = new();
+
+        public MainViewModel()
+        {
+            NetworkService = new TcpClientService();
+        }
     }
 }

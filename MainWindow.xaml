@@ -82,7 +82,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- 영역 1: 실시간 레이더 상황도 뷰 -->
-            <views:RadarCanvasView Grid.Column="0"/>
+            <views:RadarCanvasView Grid.Column="0" DataContext="{Binding RadarVM}"/>
 
             <!-- 영역 2: 선택된 장비 상세 정보 및 원격 제어 패널 -->
             <views:DeviceControlView Grid.Column="1"/>
