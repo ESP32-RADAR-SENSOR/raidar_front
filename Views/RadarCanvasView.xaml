@@ -5,9 +5,55 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
-    <Grid Background="#0A0E1A">
-        <!-- TODO: 영역 1 - 실시간 레이더 상황도 뷰 레이아웃 및 Canvas 렌더링 구현 -->
-        <TextBlock Text="[영역 1] 실시간 레이더 상황도 뷰 (RadarCanvasView)" 
-                   Foreground="#00F0FF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
-    </Grid>
+    
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="NormalBrush" Color="#00FF88"/>
+        <SolidColorBrush x:Key="WarningBrush" Color="#FFB703"/>
+        <SolidColorBrush x:Key="DangerBrush" Color="#FF0055"/>
+        <SolidColorBrush x:Key="GridLineBrush" Color="#1E3A5F"/>
+    </UserControl.Resources>
+
+    <Border Background="#0A0E1A" CornerRadius="12" BorderBrush="#1E293B" BorderThickness="1.5" Margin="6">
+        <Grid x:Name="RootGrid" SizeChanged="RadarCanvas_SizeChanged">
+            <Canvas x:Name="RadarCanvas" ClipToBounds="True">
+                <Path x:Name="RadarSweep" Fill="#00FF88" Opacity="0.3" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                        <RotateTransform x:Name="SweepRotateTransform" Angle="{Binding RadarSweepAngle}"/>
+                    </Path.RenderTransform>
+                </Path>
+
+                <Line x:Name="SweepLine" Stroke="{StaticResource GridLineBrush}" StrokeThickness="1">
+                    <Line.RenderTransform>
+                        <RotateTransform x:Name="SweepLineRotateTransform" Angle="{Binding RadarSweepAngle}"/>
+                    </Line.RenderTransform>
+                </Line>
+
+                <Canvas x:Name="TargetCanvas"/>
+            </Canvas>
+            
+            <!-- 범례 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16">
+                <Border Background="#1500FF88" BorderBrush="#00FF88" BorderThickness="1" Padding="6,3" CornerRadius="4" Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="10" Height="10" Fill="{StaticResource NormalBrush}" Margin="0,0,6,0"/>
+                        <TextBlock Text="정상" Foreground="#FFFFFF" FontSize="12"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="#1500FF88" BorderBrush="#FFB703" BorderThickness="1" Padding="6,3" CornerRadius="4" Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="10" Height="10" Fill="{StaticResource WarningBrush}" Margin="0,0,6,0"/>
+                        <TextBlock Text="주의 " Foreground="#FFFFFF" FontSize="12"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="#1500FF88" BorderBrush="#FF0055" BorderThickness="1" Padding="6,3" CornerRadius="4" Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="10" Height="10" Fill="{StaticResource DangerBrush}" Margin="0,0,6,0"/>
+                        <TextBlock Text="위험" Foreground="#FFFFFF" FontSize="12"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Border>
 </UserControl>
