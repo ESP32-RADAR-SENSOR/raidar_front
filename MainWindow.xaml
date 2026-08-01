@@ -5,12 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:RAIDAR_FRONT.Views"
         xmlns:vm="clr-namespace:RAIDAR_FRONT.ViewModels"
+        xmlns:local="clr-namespace:RAIDAR_FRONT.Converters"
         mc:Ignorable="d"
         Title="RAIDAR - ESP32 Radar Situation Control System" 
         Height="850" Width="1300"
         MinHeight="700" MinWidth="1000"
         Background="#030712" WindowStartupLocation="CenterScreen">
 
+    <Window.Resources>
+        <local:BooleanToTextConverter x:Key="BooleanToTextConverter"/>
+    </Window.Resources>
+    
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
