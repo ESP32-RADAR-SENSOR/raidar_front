@@ -14,13 +14,9 @@ namespace RAIDAR_FRONT.Services
         event Action<bool>? ConnectionStatusChanged;
 
         bool IsConnected { get; }
-        bool IsMockMode { get; }
-        string ServerIp { get; }
-        int ServerPort { get; }
 
         Task<bool> ConnectAsync(string ip, int port);
         Task DisconnectAsync();
         Task SendCommandAsync(ControlCommandDto command);
-        void SetMockMode(bool enable);
     }
 }

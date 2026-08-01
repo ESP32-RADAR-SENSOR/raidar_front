@@ -5,71 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
-    
-    <UserControl.Resources>
-        <!-- 타겟 위험도에 따른 색상 브러시 -->
-        <SolidColorBrush x:Key="NormalBrush" Color="#00FF88"/>
-        <SolidColorBrush x:Key="WarningBrush" Color="#FFB703"/>
-        <SolidColorBrush x:Key="DangerBrush" Color="#FF0055"/>
-        <SolidColorBrush x:Key="GridLineBrush" Color="#1E3A5F"/>
-    </UserControl.Resources>
-
-    <Border Background="#0A0E1A" CornerRadius="12" BorderBrush="#1E293B" BorderThickness="1.5" Margin="6">
-        <Grid x:Name="RootGrid" SizeChanged="RadarCanvas_SizeChanged">
-            <!-- 레이더 그리드 및 렌더링 캔버스 -->
-            <Canvas x:Name="RadarCanvas" ClipToBounds="True">
-                <!-- 스위프 빔 레이어 -->
-                <Path x:Name="SweepSector" Fill="#1000FF88" Opacity="0.6">
-                    <Path.RenderTransform>
-                        <RotateTransform x:Name="SweepRotateTransform" Angle="{Binding SweepAngle}"/>
-                    </Path.RenderTransform>
-                </Path>
-
-                <!-- 스위프 선 -->
-                <Line x:Name="SweepLine" Stroke="#00FF88" StrokeThickness="2" Opacity="0.8">
-                    <Line.RenderTransform>
-                        <RotateTransform x:Name="LineRotateTransform" Angle="{Binding SweepAngle}"/>
-                    </Line.RenderTransform>
-                </Line>
-
-                <!-- 타겟 표시용 컨테이너 캔버스 -->
-                <Canvas x:Name="TargetsOverlayCanvas"/>
-            </Canvas>
-
-            <!-- 레이더 상단 오버레이 (헤더 및 나침반 정보) -->
-            <Grid VerticalAlignment="Top" Margin="16">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <TextBlock Text="📡 REALTIME RADAR SITUATION MAP" Foreground="#00F0FF" FontWeight="Bold" FontSize="14"/>
-                    <Border Background="#1E293B" CornerRadius="4" Margin="12,0,0,0" Padding="6,2">
-                        <TextBlock Text="{Binding MaxRange, StringFormat='범위: {0:F1}m'}" Foreground="#94A3B8" FontSize="11"/>
-                    </Border>
-                </StackPanel>
-
-                <!-- 북쪽/남쪽/동쪽/서쪽 라벨 -->
-                <TextBlock Text="N 0°" Foreground="#00FF88" FontWeight="SemiBold" FontSize="11" HorizontalAlignment="Center"/>
-            </Grid>
-
-            <!-- 범례 (Legend) -->
-            <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="16" Orientation="Horizontal">
-                <Border Background="#1500FF88" BorderBrush="#00FF88" BorderThickness="1" CornerRadius="4" Padding="6,3" Margin="0,0,8,0">
-                    <StackPanel Orientation="Horizontal">
-                        <Ellipse Width="8" Height="8" Fill="#00FF88" Margin="0,0,4,0"/>
-                        <TextBlock Text="정상" Foreground="#00FF88" FontSize="10"/>
-                    </StackPanel>
-                </Border>
-                <Border Background="#15FFB703" BorderBrush="#FFB703" BorderThickness="1" CornerRadius="4" Padding="6,3" Margin="0,0,8,0">
-                    <StackPanel Orientation="Horizontal">
-                        <Ellipse Width="8" Height="8" Fill="#FFB703" Margin="0,0,4,0"/>
-                        <TextBlock Text="주의" Foreground="#FFB703" FontSize="10"/>
-                    </StackPanel>
-                </Border>
-                <Border Background="#15FF0055" BorderBrush="#FF0055" BorderThickness="1" CornerRadius="4" Padding="6,3">
-                    <StackPanel Orientation="Horizontal">
-                        <Ellipse Width="8" Height="8" Fill="#FF0055" Margin="0,0,4,0"/>
-                        <TextBlock Text="위험" Foreground="#FF0055" FontSize="10"/>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
-        </Grid>
-    </Border>
+    <Grid Background="#0A0E1A">
+        <!-- TODO: 영역 1 - 실시간 레이더 상황도 뷰 레이아웃 및 Canvas 렌더링 구현 -->
+        <TextBlock Text="[영역 1] 실시간 레이더 상황도 뷰 (RadarCanvasView)" 
+                   Foreground="#00F0FF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
+    </Grid>
 </UserControl>

@@ -17,91 +17,31 @@
 
     <Grid Margin="12">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/> <!-- 글로벌 상단 헤더 및 통신 상태 바 -->
-            <RowDefinition Height="*"/>    <!-- 상단 2분할 (영역1: 레이더 상황도, 영역2: 원격 제어 패널) -->
-            <RowDefinition Height="220"/>  <!-- 하단 영역 (영역3: 실시간 로그 뷰어) -->
+            <RowDefinition Height="Auto"/> <!-- 헤더 -->
+            <RowDefinition Height="*"/>    <!-- 2분할 (영역 1, 영역 2) -->
+            <RowDefinition Height="220"/>  <!-- 영역 3 -->
         </Grid.RowDefinitions>
 
-        <!-- 상단 내비게이션 / 시스템 헤더 -->
+        <!-- 상단 헤더 -->
         <Border Grid.Row="0" Background="#0A0E1A" CornerRadius="12" BorderBrush="#1E293B" BorderThickness="1.5" Margin="6" Padding="16,12">
-            <Grid>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="🎯 RAIDAR" Foreground="#00F0FF" FontWeight="Bold" FontSize="20" Margin="0,0,16,0"/>
-                    <Border Background="#1E293B" CornerRadius="6" Padding="8,4" VerticalAlignment="Center">
-                        <TextBlock Text="ESP32 RADAR MONITORING FRONTEND" Foreground="#94A3B8" FontSize="11" FontWeight="SemiBold"/>
-                    </Border>
-                </StackPanel>
-
-                <!-- 글로벌 연결 상태 배지 -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Border CornerRadius="12" Padding="12,4">
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Setter Property="Background" Value="#1E293B"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding NetworkService.IsConnected}" Value="True">
-                                        <Setter Property="Background" Value="#065F46"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding NetworkService.IsMockMode}" Value="True">
-                                        <Setter Property="Background" Value="#1E3A8A"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-
-                        <StackPanel Orientation="Horizontal">
-                            <Ellipse Width="10" Height="10" Margin="0,0,6,0">
-                                <Ellipse.Style>
-                                    <Style TargetType="Ellipse">
-                                        <Setter Property="Fill" Value="#94A3B8"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding NetworkService.IsConnected}" Value="True">
-                                                <Setter Property="Fill" Value="#10B981"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding NetworkService.IsMockMode}" Value="True">
-                                                <Setter Property="Fill" Value="#3B82F6"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Ellipse.Style>
-                            </Ellipse>
-
-                            <TextBlock Foreground="White" FontWeight="Bold" FontSize="11">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Text" Value="DISCONNECTED"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding NetworkService.IsConnected}" Value="True">
-                                                <Setter Property="Text" Value="TCP CONNECTED"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding NetworkService.IsMockMode}" Value="True">
-                                                <Setter Property="Text" Value="MOCK SIMULATION"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </Grid>
+            <TextBlock Text="🎯 RAIDAR MONITORING FRONTEND" Foreground="#00F0FF" FontWeight="Bold" FontSize="18"/>
         </Border>
 
         <!-- 메인 콘텐츠 영역 (2열 분할: 영역 1 레이더 상황도 + 영역 2 원격 제어 패널) -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>    <!-- 영역 1: 실시간 레이더 상황도 뷰 -->
-                <ColumnDefinition Width="380"/>  <!-- 영역 2: 선택 장비 상세 및 원격 제어 버튼 패널 -->
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="380"/>
             </Grid.ColumnDefinitions>
 
             <!-- 영역 1: 실시간 레이더 상황도 뷰 -->
-            <views:RadarCanvasView Grid.Column="0" DataContext="{Binding RadarVM}"/>
+            <views:RadarCanvasView Grid.Column="0"/>
 
             <!-- 영역 2: 선택된 장비 상세 정보 및 원격 제어 패널 -->
-            <views:DeviceControlView Grid.Column="1" DataContext="{Binding DeviceControlVM}"/>
+            <views:DeviceControlView Grid.Column="1"/>
         </Grid>
 
         <!-- 영역 3: 서버 수신 이벤트 및 에러 로그 실시간 뷰어 -->
-        <views:LogViewerControl Grid.Row="2" DataContext="{Binding LogViewerVM}"/>
+        <views:LogViewerControl Grid.Row="2"/>
     </Grid>
 </Window>

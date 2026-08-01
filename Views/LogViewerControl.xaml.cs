@@ -1,4 +1,3 @@
-using System.Collections.Specialized;
 using System.Windows.Controls;
 
 namespace RAIDAR_FRONT.Views
