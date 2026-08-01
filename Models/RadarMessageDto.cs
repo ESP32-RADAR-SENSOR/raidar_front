@@ -3,9 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace RAIDAR_FRONT.Models
 {
-    /// <summary>
+
     /// 수신 메시지 공통 베이스 DTO ("type" 필드로 구분)
-    /// </summary>
+
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
     [JsonDerivedType(typeof(DistanceMessageDto), typeDiscriminator: "distance")]
     [JsonDerivedType(typeof(ScanMessageDto), typeDiscriminator: "scan")]
@@ -21,18 +21,16 @@ namespace RAIDAR_FRONT.Models
         public DateTime Timestamp { get; set; } = DateTime.Now;
     }
 
-    /// <summary>
     /// 거리 단일 측정 메시지 ("type": "distance")
-    /// </summary>
+
     public class DistanceMessageDto : RadarMessageDto
     {
         [JsonPropertyName("distance")]
         public double Distance { get; set; }
     }
 
-    /// <summary>
     /// 레이더 스캔 메시지 ("type": "scan")
-    /// </summary>
+
     public class ScanMessageDto : RadarMessageDto
     {
         [JsonPropertyName("angle")]
