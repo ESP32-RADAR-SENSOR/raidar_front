@@ -85,7 +85,7 @@
             <views:RadarCanvasView Grid.Column="0" DataContext="{Binding RadarVM}"/>
 
             <!-- 영역 2: 선택된 장비 상세 정보 및 원격 제어 패널 -->
-            <views:DeviceControlView Grid.Column="1"/>
+            <views:DeviceControlView Grid.Column="1" DataContext="{Binding DeviceControlVM}"/>
         </Grid>
 
         <!-- 영역 3: 서버 수신 이벤트 및 에러 로그 실시간 뷰어 -->
