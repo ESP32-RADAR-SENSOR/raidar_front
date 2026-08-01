@@ -42,6 +42,8 @@ namespace RAIDAR_FRONT.ViewModels
                     {
                         _selectedTarget.IsSelected = true;
                     }
+                    OnPropertyChanged();
+                    TargetSelectedChanged?.Invoke(_selectedTarget);
                 }
             }
         }

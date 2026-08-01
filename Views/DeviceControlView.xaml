@@ -5,9 +5,98 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="350">
-    <Grid Background="#0A0E1A">
-        <!-- TODO: 영역 2 - 선택 장비 상세정보 & 원격 제어 패널 레이아웃 구현 -->
-        <TextBlock Text="[영역 2] 장비 제어 패널 (DeviceControlView)" 
-                   Foreground="#00F0FF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
-    </Grid>
+    <Border Background="#0A0E1A" CornerRadius="12" BorderBrush="#1E293B" BorderThickness="1.5" Margin="6" Padding="16">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <!-- 서버 연결 정보 -->
+                <RowDefinition Height="Auto"/> <!-- 통신 설정 -->
+                <RowDefinition Height="Auto"/> <!-- 선택 장비 상세 정보 --> 
+                <RowDefinition Height="*"/> <!-- 원격 제어 버튼 패널-->
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="🛠 Device &amp; REMOTE CONTROL PANEL" Foreground="#00F0FF" FontWeight="Bold" FontSize="14" Margin="0,0,0,16"/>
+
+            <Border Grid.Row="1" Background="#111827" CornerRadius="8" Padding="12" Margin="0,0,0,16" BorderThickness="1" BorderBrush="#1F2937">
+                <StackPanel>
+                    <TextBlock Text="C++ TCP/IP SERVER CONNECTION" Foreground="#64748B" FontWeight="SemiBold" FontSize="11" Margin="0,0,0,8"/>
+
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Text="{Binding IpAddress, UpdateSourceTrigger=PropertyChanged}" Background="#1E293B" Foreground="White" BorderBrush="#334155" Padding="6,4" Margin="0,0,8,0"/>
+                        <TextBox Grid.Column="1" Text="{Binding Port, UpdateSourceTrigger=PropertyChanged}" Background="#1E293B" Foreground="White" BorderBrush="#334155" Padding="6,4"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="CONNECT" Command="{Binding ConnectCommand}" Background="#059669" Foreground="White" FontWeight="Bold" Padding="0,6" Margin="0,0,4,0" BorderThickness="0"/>
+                        <Button Grid.Column="1" Content="DISCONNECT" Command="{Binding DisconnectCommand}" Background="#DC2626" Foreground="White" FontWeight="Bold" Padding="0,6" Margin="4,0,0,0" BorderThickness="0"/>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+            
+            <!-- 장비 상세 정보 카드 -->
+            <Border Grid.Row="2" Background="#111827" CornerRadius="8" Padding="14" Margin="0,0,0,16" BorderBrush="#1F2937" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="SELECTED TARGET STATUS" Foreground="#64748B" FontSize="11" FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+                    <Grid Margin="0,0,0,6">
+                        <TextBlock Text="장비 ID" Foreground="#94A3B8" FontSize="12"/>
+                        <TextBlock Text="{Binding SelectedTarget.DeviceId, FallbackValue='선택된 장비 없음'}" Foreground="#00F0FF" FontWeight="Bold" FontSize="13" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,6">
+                        <TextBlock Text="측정 거리" Foreground="#94A3B8" FontSize="12"/>
+                        <TextBlock Text="{Binding SelectedTarget.Distance, StringFormat='{}{0:F2} m', FallbackValue='- m'}" Foreground="White" FontWeight="SemiBold" FontSize="12" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,6">
+                        <TextBlock Text="방위각" Foreground="#94A3B8" FontSize="12"/>
+                        <TextBlock Text="{Binding SelectedTarget.Angle, StringFormat='{}{0:F1} °', FallbackValue='- °'}" Foreground="White" FontWeight="SemiBold" FontSize="12" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,6">
+                        <TextBlock Text="위험 등급" Foreground="#94A3B8" FontSize="12"/>
+                        <Border HorizontalAlignment="Right" Padding="8,2" CornerRadius="4" Background="#1E293B">
+                            <TextBlock Text="{Binding SelectedTarget.DangerLevel, FallbackValue='- '}" Foreground="#FFB703" FontWeight="Bold" FontSize="11"/>
+                        </Border>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,0">
+                        <TextBlock Text="수신 시퀀스" Foreground="#94A3B8" FontSize="12"/>
+                        <TextBlock Text="{Binding SelectedTarget.Sequence, StringFormat='#{0}', FallbackValue='#0'}" Foreground="#64748B" FontSize="11" HorizontalAlignment="Right"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- 원격 제어 버튼 패널 -->
+            <Border Grid.Row="3" Background="#111827" CornerRadius="8" Padding="14" BorderBrush="#1F2937" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="REMOTE COMMAND CONTROL" Foreground="#64748B" FontSize="11" FontWeight="SemiBold" Margin="0,0,0,12"/>
+
+                    <!-- 비상 경보 버튼 -->
+                    <Button Command="{Binding EmergencyAlarmCommand}" Height="48" Margin="0,0,0,10" BorderThickness="0" Background="#EF4444">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🚨 " FontSize="16"/>
+                            <TextBlock Text="EMERGENCY ALARM" Foreground="White" FontWeight="Bold" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- 장비 리셋 버튼 -->
+                    <Button Command="{Binding ResetDeviceCommand}" Height="44" Margin="0,0,0,10" BorderThickness="0" Background="#F59E0B">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🔄 " FontSize="16"/>
+                            <TextBlock Text="RESET SYSTEM" Foreground="White" FontWeight="Bold" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+        </Grid>        
+    </Border>
 </UserControl>
