@@ -66,6 +66,11 @@ namespace RAIDAR_FRONT.Services
             await Task.CompletedTask;
         }
 
+        private static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
         private async Task ReceiveLoopAsync(CancellationToken token)
         {
             if (_stream == null) return;
@@ -82,7 +87,7 @@ namespace RAIDAR_FRONT.Services
 
                     try
                     {
-                        RadarMessageDto? targetData = JsonSerializer.Deserialize<RadarMessageDto>(line);
+                        RadarMessageDto? targetData = JsonSerializer.Deserialize<RadarMessageDto>(line, _jsonOptions);
                         if (targetData != null)
                         {
                             TargetDataReceived?.Invoke(targetData);
