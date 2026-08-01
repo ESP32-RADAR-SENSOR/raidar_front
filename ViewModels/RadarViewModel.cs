@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 
 namespace RAIDAR_FRONT.ViewModels
@@ -63,11 +62,7 @@ namespace RAIDAR_FRONT.ViewModels
 
             _timer.Tick += (s, e) =>
             {
-                _sweepAngle += 5; // 스윕 각도 증가
-                if (_sweepAngle >= 360)
-                {
-                    _sweepAngle %= 360; // 360도 이상이면 초기화
-                }
+                SweepAngle = (SweepAngle + 5) % 360;
             };
             _timer.Start();
         }

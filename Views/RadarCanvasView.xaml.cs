@@ -181,7 +181,7 @@ namespace RAIDAR_FRONT.Views
                 RadarCanvas.Children.Add(line);
 
                 // 각도 라벨 표시
-                if (deg % 90 != 0 && deg != 0)
+                if (deg != 0)
                 {
                     TextBlock degLabel = new TextBlock
                     {
