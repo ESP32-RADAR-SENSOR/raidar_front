@@ -1,0 +1,25 @@
+## Visual Studio 2022 / .NET / WPF gitignore
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio files
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userHost
+*.sln.docstates
+
+# Operating System Files
+.DS_Store
+Thumbs.db
