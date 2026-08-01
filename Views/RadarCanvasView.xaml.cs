@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Controls;
 
 namespace RAIDAR_FRONT.Views
@@ -7,6 +8,11 @@ namespace RAIDAR_FRONT.Views
         public RadarCanvasView()
         {
             InitializeComponent();
+        }
+
+        private void RadarCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            
         }
     }
 }

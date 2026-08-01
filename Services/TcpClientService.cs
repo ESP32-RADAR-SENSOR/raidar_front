@@ -15,7 +15,7 @@ namespace RAIDAR_FRONT.Services
         private CancellationTokenSource? _cts;
         private bool _isConnected;
 
-        public event Action<RadarTargetDto>? TargetDataReceived;
+        public event Action<RadarMessageDto>? TargetDataReceived;
         public event Action<LogEntry>? LogReceived;
         public event Action<bool>? ConnectionStatusChanged;
 
@@ -82,7 +82,7 @@ namespace RAIDAR_FRONT.Services
 
                     try
                     {
-                        RadarTargetDto? targetData = JsonSerializer.Deserialize<RadarTargetDto>(line);
+                        RadarMessageDto? targetData = JsonSerializer.Deserialize<RadarMessageDto>(line);
                         if (targetData != null)
                         {
                             TargetDataReceived?.Invoke(targetData);

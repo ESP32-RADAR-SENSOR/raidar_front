@@ -15,7 +15,7 @@
 
     <Border Background="#0A0E1A" CornerRadius="12" BorderBrush="#1E293B" BorderThickness="1.5" Margin="6">
         <Grid x:Name="RootGrid" SizeChanged="RadarCanvas_SizeChanged">
-            <Canvas x:Name="RadarCanvas" ClipToBounds="True">
+            <Canvas x:Name="RadarCanvas" ClipToBounds="True" Margin="-10,-110,10,109">
                 <Path x:Name="RadarSweep" Fill="#00FF88" Opacity="0.3" RenderTransformOrigin="0.5,0.5">
                     <Path.RenderTransform>
                         <RotateTransform x:Name="SweepRotateTransform" Angle="{Binding RadarSweepAngle}"/>
