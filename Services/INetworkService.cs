@@ -6,7 +6,7 @@ namespace RAIDAR_FRONT.Services
 
     public interface INetworkService
     {
-        event Action<RadarTargetDto>? TargetDataReceived;
+        event Action<RadarMessageDto>? TargetDataReceived;
         event Action<LogEntry>? LogReceived;
         event Action<bool>? ConnectionStatusChanged;
 

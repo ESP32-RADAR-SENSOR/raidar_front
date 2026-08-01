@@ -5,9 +5,64 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600">
-    <Grid Background="#0A0E1A">
-        <!-- TODO: 영역 1 - 실시간 레이더 상황도 뷰 레이아웃 및 Canvas 렌더링 구현 -->
-        <TextBlock Text="[영역 1] 실시간 레이더 상황도 뷰 (RadarCanvasView)" 
-                   Foreground="#00F0FF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
-    </Grid>
+    
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="NormalBrush" Color="#00FF88"/>
+        <SolidColorBrush x:Key="WarningBrush" Color="#FFB703"/>
+        <SolidColorBrush x:Key="DangerBrush" Color="#FF0055"/>
+        <SolidColorBrush x:Key="GridLineBrush" Color="#1E3A5F"/>
+    </UserControl.Resources>
+
+    <Border Background="#0A0E1A" CornerRadius="12" BorderBrush="#1E293B" BorderThickness="1.5" Margin="6">
+        <Grid x:Name="RootGrid" SizeChanged="RadarCanvas_SizeChanged">
+            <!-- 레이더 캔버스 영역 -->
+            <Canvas x:Name="RadarCanvas" ClipToBounds="True">
+                <!-- 스위프 피자 모양 패스 -->
+                <Path x:Name="RadarSweep" Fill="#00FF88" Opacity="0.25">
+                    <Path.RenderTransform>
+                        <RotateTransform x:Name="SweepRotateTransform" Angle="{Binding SweepAngle}"/>
+                    </Path.RenderTransform>
+                </Path>
+
+                <!-- 스위프 탐지 회전선 --> 
+                <Line x:Name="SweepLine" Stroke="#00FF88" StrokeThickness="2" Opacity="0.8">
+                    <Line.RenderTransform>
+                        <RotateTransform x:Name="SweepLineRotateTransform" Angle="{Binding SweepAngle}"/>
+                    </Line.RenderTransform>
+                </Line>
+
+                <!-- 타겟 오버레이 캔버스 -->
+                <Canvas x:Name="TargetCanvas"/>
+            </Canvas>
+
+            <!-- 상단 레이더 타이틀 -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16">
+                <TextBlock Text="📡 REALTIME RADAR MAP" Foreground="#00F0FF" FontWeight="Bold" FontSize="13"/>
+            </StackPanel>
+            
+            <!-- 범례 (Legend) -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16">
+                <Border Background="#1500FF88" BorderBrush="#00FF88" BorderThickness="1" Padding="6,3" CornerRadius="4" Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource NormalBrush}" Margin="0,0,6,0"/>
+                        <TextBlock Text="정상" Foreground="#FFFFFF" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="#15FFB703" BorderBrush="#FFB703" BorderThickness="1" Padding="6,3" CornerRadius="4" Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource WarningBrush}" Margin="0,0,6,0"/>
+                        <TextBlock Text="주의" Foreground="#FFFFFF" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="#15FF0055" BorderBrush="#FF0055" BorderThickness="1" Padding="6,3" CornerRadius="4" Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource DangerBrush}" Margin="0,0,6,0"/>
+                        <TextBlock Text="위험" Foreground="#FFFFFF" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Border>
 </UserControl>
