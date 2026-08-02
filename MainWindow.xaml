@@ -8,8 +8,8 @@
         xmlns:local="clr-namespace:RAIDAR_FRONT.Converters"
         mc:Ignorable="d"
         Title="RAIDAR - ESP32 Radar Situation Control System" 
-        Height="850" Width="1300"
-        MinHeight="700" MinWidth="1000"
+        Height="900" Width="1300"
+        MinHeight="900" MinWidth="1000"
         Background="#030712" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -89,6 +89,6 @@
         </Grid>
 
         <!-- 영역 3: 서버 수신 이벤트 및 에러 로그 실시간 뷰어 -->
-        <views:LogViewerControl Grid.Row="2"/>
+        <views:LogViewerControl Grid.Row="2" DataContext="{Binding LogViewerVM}"/>
     </Grid>
 </Window>

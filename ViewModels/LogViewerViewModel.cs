@@ -36,7 +36,7 @@ namespace RAIDAR_FRONT.ViewModels
         {
             if (SelectedFilter != "ALL" && logEntry.Level != SelectedFilter)
                 return;
-            Logs.Add(logEntry);
+            Logs.Insert(0, logEntry);
             // 최대 로그 항목 수 유지
             if (Logs.Count > MaxLogEntries)
                 Logs.RemoveAt(0);

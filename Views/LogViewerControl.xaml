@@ -13,12 +13,10 @@
 
     <Border Background="#0A0E1A" CornerRadius="12" BorderBrush="#1E293B" BorderThickness="1.5" Margin="6" Padding="12">
         <Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-            </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
         
             <!-- 로그 뷰어 상단 헤더-->
             <Grid Grid.Row="0" Margin="0,0,0,8">
@@ -28,7 +26,6 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <CheckBox Content="자동 스크롤" IsChecked="{Binding AutoScroll}" Foreground="#94A3B8" FontSize="11" VerticalAlignment="Center" Margin="0,0,12,0"/>
                     <Button Content="CLEAR LOGS" Command="{Binding ClearLogsCommand}" Background="#1E293B" Foreground="#94A3B8" FontSize="11" Padding="8,4" BorderThickness="0"/>
                 </StackPanel>
             </Grid>

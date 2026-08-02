@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Windows;
+using RAIDAR_FRONT.Models;
 using RAIDAR_FRONT.Services;
 
 namespace RAIDAR_FRONT.ViewModels
@@ -14,6 +15,7 @@ namespace RAIDAR_FRONT.ViewModels
         public INetworkService NetworkService { get; }
         public RadarViewModel RadarVM { get; } = new();
         public DeviceControlViewModel DeviceControlVM { get; }
+        public LogViewerViewModel LogViewerVM { get; }
 
         public bool IsConnected
         {
@@ -25,6 +27,7 @@ namespace RAIDAR_FRONT.ViewModels
         {
             NetworkService = new TcpClientService();
             DeviceControlVM = new DeviceControlViewModel(NetworkService);
+            LogViewerVM = new LogViewerViewModel(NetworkService);
 
             IsConnected = NetworkService.IsConnected;
             NetworkService.ConnectionStatusChanged += isConnected =>
@@ -49,6 +52,14 @@ namespace RAIDAR_FRONT.ViewModels
                     target.UpdateFromMessage(targetData);
                 });
             };
+
+            LogViewerVM.AddLog(new LogEntry
+            {
+                Timestamp = DateTime.Now,
+                Level = "INFO",
+                Message = "Application started.",
+                Source = "MainViewModel"
+            });
         }
     }
 }
