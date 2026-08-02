@@ -88,7 +88,7 @@ namespace RAIDAR_FRONT.ViewModels
                     break;
             }
 
-            DangerLevel = Distance < 100.0 ? "Danger" : (Distance < 200.0 ? "Warning" : "Normal");
+            DangerLevel = Distance < 1.5 ? "Danger" : (Distance < 3.0 ? "Warning" : "Normal");
         }
     }
 }

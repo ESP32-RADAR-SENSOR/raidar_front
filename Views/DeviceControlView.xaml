@@ -62,8 +62,24 @@
 
                     <Grid Margin="0,0,0,6">
                         <TextBlock Text="위험 등급" Foreground="#94A3B8" FontSize="12"/>
-                        <Border HorizontalAlignment="Right" Padding="8,2" CornerRadius="4" Background="#1E293B">
-                            <TextBlock Text="{Binding SelectedTarget.DangerLevel, FallbackValue='- '}" Foreground="#FFB703" FontWeight="Bold" FontSize="11"/>
+                        <Border HorizontalAlignment="Right" Padding="8,2" CornerRadius="4">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="#1E293B"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedTarget.DangerLevel}" Value="Normal">
+                                            <Setter Property="Background" Value="#059669"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding SelectedTarget.DangerLevel}" Value="Warning">
+                                            <Setter Property="Background" Value="#D97706"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding SelectedTarget.DangerLevel}" Value="Danger">
+                                            <Setter Property="Background" Value="#DC2626"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <TextBlock Text="{Binding SelectedTarget.DangerLevel, FallbackValue='-'}" Foreground="White" FontWeight="Bold" FontSize="11"/>
                         </Border>
                     </Grid>
 

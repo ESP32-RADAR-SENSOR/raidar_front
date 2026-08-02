@@ -49,8 +49,51 @@ namespace RAIDAR_FRONT.ViewModels
                         target = new RadarTargetViewModel { DeviceId = targetData.DeviceId };
                         RadarVM.Targets.Add(target);
                     }
+
+                    string prevDanger = target.DangerLevel;
                     target.UpdateFromMessage(targetData);
+
+                    // DangerLevel 등급 변동 시 WARN / ERROR 로그 자동 생성
+                    if (prevDanger != target.DangerLevel)
+                    {
+                        if (target.DangerLevel == "Danger")
+                        {
+                            LogViewerVM.AddLog(new LogEntry
+                            {
+                                Timestamp = DateTime.Now,
+                                Level = "ERROR",
+                                Message = $"[DANGER] Target {target.DeviceId} in critical distance! ({target.Distance:F2}m, {target.Angle:F1}°)",
+                                Source = target.DeviceId
+                            });
+                        }
+                        else if (target.DangerLevel == "Warning")
+                        {
+                            LogViewerVM.AddLog(new LogEntry
+                            {
+                                Timestamp = DateTime.Now,
+                                Level = "WARN",
+                                Message = $"[WARNING] Target {target.DeviceId} entering warning zone! ({target.Distance:F2}m, {target.Angle:F1}°)",
+                                Source = target.DeviceId
+                            });
+                        }
+                    }
                 });
+            };
+
+            // 레이더 뷰어 타겟 선택 이벤트 연동 -> 장비 제어 패널 업데이트
+            RadarVM.TargetSelectedChanged += target =>
+            {
+                DeviceControlVM.SelectedTarget = target;
+                if (target != null)
+                {
+                    LogViewerVM.AddLog(new LogEntry
+                    {
+                        Timestamp = DateTime.Now,
+                        Level = "INFO",
+                        Message = $"Selected Target: {target.DeviceId} (Dist: {target.Distance:F2}m, Angle: {target.Angle:F1}°)",
+                        Source = "UI_CONTROL"
+                    });
+                }
             };
 
             LogViewerVM.AddLog(new LogEntry

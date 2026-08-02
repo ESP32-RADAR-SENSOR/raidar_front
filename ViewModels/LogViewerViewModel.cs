@@ -1,3 +1,4 @@
+using System.Windows;
 using RAIDAR_FRONT.Models;
 using RAIDAR_FRONT.Services;
 using System.Collections.ObjectModel;
@@ -34,12 +35,24 @@ namespace RAIDAR_FRONT.ViewModels
 
         private void OnLogReceived(LogEntry logEntry)
         {
-            if (SelectedFilter != "ALL" && logEntry.Level != SelectedFilter)
-                return;
-            Logs.Insert(0, logEntry);
-            // 최대 로그 항목 수 유지
-            if (Logs.Count > MaxLogEntries)
-                Logs.RemoveAt(0);
+            void Action()
+            {
+                if (SelectedFilter != "ALL" && logEntry.Level != SelectedFilter)
+                    return;
+                Logs.Insert(0, logEntry);
+                // 최대 로그 항목 수 유지
+                if (Logs.Count > MaxLogEntries)
+                    Logs.RemoveAt(0);
+            }
+
+            if (Application.Current?.Dispatcher.CheckAccess() == false)
+            {
+                Application.Current.Dispatcher.Invoke(Action);
+            }
+            else
+            {
+                Action();
+            }
         }
     }
 }
