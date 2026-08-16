@@ -87,7 +87,7 @@ namespace RAIDAR_FRONT.Services
 
                     try
                     {
-                        RadarMessageDto? targetData = JsonSerializer.Deserialize<RadarMessageDto>(line, _jsonOptions);
+                        DistanceMessageDto? targetData = JsonSerializer.Deserialize<DistanceMessageDto>(line, _jsonOptions);
                         if (targetData != null)
                         {
                             TargetDataReceived?.Invoke(targetData);
